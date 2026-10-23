@@ -1,0 +1,33 @@
+services:
+  service-frontend:
+    build:
+      context: ./service-frontend
+      dockerfile: Dockerfile
+    container_name: service-frontend
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  service-orders:
+    build:
+      context: ./service-orders
+      dockerfile: Dockerfile
+    container_name: service-orders
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  service-inventory:
+    build:
+      context: ./service-inventory
+      dockerfile: Dockerfile
+    container_name: service-inventory
+    ports:
+      - "8083:8080"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
