@@ -1,0 +1,19 @@
+substitutions:
+  _REGION: us-central1
+  _REPO: microservices-repo
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/service-frontend:v1', './service-frontend']
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/service-orders:v1', './service-orders']
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/service-inventory:v1', './service-inventory']
+
+images:
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/service-frontend:v1'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/service-orders:v1'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/service-inventory:v1'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
